@@ -12,6 +12,11 @@ Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
+
+To view System Admin Panel use:
+Username: Bret
+Password: 92998-3874
+
 You may also see any lint errors in the console.
 
 ### `yarn test`
