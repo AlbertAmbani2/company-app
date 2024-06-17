@@ -1,26 +1,30 @@
 import React from 'react';
 import { Admin, Resource } from 'react-admin';
-import jsonServerProvider from 'ra-data-json-server';
-import authProvider from '../../providers/authProvider';
-import { Dashboard } from './Dashboard'
+import restProvider from 'ra-data-json-server';
 import { UserList } from '../../components/users';
-import { TaskList, TaskEdit, TaskCreate } from '../../components/tasks';
+import { TaskList, TaskEdit, TaskCreate } from '../../components/tasks'; // Import from tasks.js
+import { Dashboard } from './Dashboard';
 import UserIcon from '@mui/icons-material/Group';
 import TaskIcon from '@mui/icons-material/Task';
 
-const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com');
+const dataProvider = restProvider('https://jsonplaceholder.typicode.com');
 
-const AdminPage = () => (
-  <Admin dataProvider={dataProvider} authProvider={authProvider} dashboard={Dashboard}>
-    <Resource name="users" list={UserList} icon={UserIcon}/>
+const AdminApp = () => (
+  <Admin dashboard={Dashboard} dataProvider={dataProvider}>
     <Resource
-      name="tasks"
+      name="users"
+      list={UserList}
+      icon={UserIcon}
+    />
+    <Resource
+      name="posts" // JSONPlaceholder's endpoint for tasks
       list={TaskList}
       edit={TaskEdit}
       create={TaskCreate}
-	  icon={TaskIcon}
+      icon={TaskIcon}
+      options={{ label: 'Tasks' }}
     />
   </Admin>
 );
 
-export default AdminPage;
+export default AdminApp;
