@@ -1,21 +1,39 @@
 // src/context/AuthContext.js
 
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem('user');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+  const [isAdmin, setIsAdmin] = useState(() => {
+    const savedIsAdmin = localStorage.getItem('isAdmin');
+    return savedIsAdmin === 'true';
+  });
+  const navigate = useNavigate();
 
-  const login = (email, password) => {
+  useEffect(() => {
+    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('isAdmin', isAdmin);
+  }, [user, isAdmin]);
+
+  const login = (username, password) => {
     // Simulate login logic
-    if (email === 'admin' && password === 'admin') {
-      setUser({ email });
+    if (username === 'admin' && password === 'admin') {
+      setUser({ username });
       setIsAdmin(true);
+      localStorage.setItem('user', JSON.stringify({ username }));
+      localStorage.setItem('isAdmin', true);
+      navigate('/admin'); // Redirect to admin page upon successful login
     } else {
       setUser(null);
       setIsAdmin(false);
+      localStorage.removeItem('user');
+      localStorage.removeItem('isAdmin');
       throw new Error('Invalid credentials');
     }
   };
@@ -23,6 +41,9 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser(null);
     setIsAdmin(false);
+    localStorage.removeItem('user');
+    localStorage.removeItem('isAdmin');
+    navigate('/'); // Redirect to homepage
   };
 
   return (

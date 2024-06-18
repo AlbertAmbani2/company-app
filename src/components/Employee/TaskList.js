@@ -1,8 +1,7 @@
-// ..\src\components\Employee\UserTasks.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { CircularProgress } from '@mui/material';
-import EmployeeTasksTable from './EmployeeTaskTable';
+import EmployeeTasksTable from './EmployeeTaskTable'; // Ensure the path is correct
 
 const UserTasks = ({ user }) => {
   const [tasks, setTasks] = useState([]);
@@ -32,7 +31,7 @@ const UserTasks = ({ user }) => {
     // Mock update to JSONPlaceholder (in real scenario, make a PUT/PATCH request)
     try {
       await axios.patch(`https://jsonplaceholder.typicode.com/todos/${taskId}`, {
-        completed: !tasks.find((task) => task.id === taskId).completed,
+        completed: !updatedTasks.find((task) => task.id === taskId).completed,
       });
     } catch (error) {
       console.error('Error updating task:', error);

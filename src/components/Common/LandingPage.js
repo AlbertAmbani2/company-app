@@ -18,7 +18,7 @@ const LandingPage = () => {
             }}
             align="center"
           >
-            Welcome to Elewa App
+            Welcome to Elewa.co
           </Typography>
           <Typography variant="body1" align="center">
             Discover the details about our company and join us today.

@@ -13,9 +13,14 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 
-To view System Admin Panel use:
+To view System Admin Panel use: http://localhost:3000/admin
 Username: Bret
 Password: 92998-3874
+
+To view Employees Page  : http://localhost:3000/login
+username: Antonette
+password: 90566-7771
+
 
 You may also see any lint errors in the console.
 

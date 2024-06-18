@@ -1,49 +1,32 @@
 // ..\src\components\Employee\EmployeeTasksTable.js
 import React from 'react';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Checkbox,
-} from '@mui/material';
-import { CheckCircle, RadioButtonUnchecked } from '@mui/icons-material';
+import { Table, TableBody, TableCell, TableHead, TableRow, Checkbox } from '@mui/material';
 
-const EmployeeTasksTable = ({ user, tasks, onTaskToggle }) => {
+const EmployeeTasksTable = ({ tasks, onTaskToggle }) => {
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Employee Name</TableCell>
-            <TableCell>Task</TableCell>
-            <TableCell align="right">Status</TableCell>
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableCell>Task ID</TableCell>
+          <TableCell>Title</TableCell>
+          <TableCell>Completed</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {tasks.map((task) => (
+          <TableRow key={task.id}>
+            <TableCell>{task.id}</TableCell>
+            <TableCell>{task.title}</TableCell>
+            <TableCell>
+              <Checkbox
+                checked={task.completed}
+                onChange={() => onTaskToggle(task.id)}
+              />
+            </TableCell>
           </TableRow>
-        </TableHead>
-        <TableBody>
-          {tasks.map((task) => (
-            <TableRow key={task.id}>
-              <TableCell component="th" scope="row">
-                {user.name}
-              </TableCell>
-              <TableCell>{task.title}</TableCell>
-              <TableCell align="right">
-                <Checkbox
-                  checked={task.completed}
-                  onClick={() => onTaskToggle(task.id)}
-                  icon={<RadioButtonUnchecked />}
-                  checkedIcon={<CheckCircle />}
-                />
-                {task.completed ? 'Completed' : 'In Progress'}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+        ))}
+      </TableBody>
+    </Table>
   );
 };
 
